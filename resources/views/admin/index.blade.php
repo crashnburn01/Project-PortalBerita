@@ -1,5 +1,9 @@
 @include('admin.partials.header')
 
+@php
+    $isSuperadmin = Auth::user()->role === 'superadmin';
+@endphp
+
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -134,6 +138,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if ($isSuperadmin)
                             <div class="card-body px-3 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -142,11 +148,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Followers</h6>
-                                        <h6 class="font-extrabold mb-0">183.000</h6>
+                                        <a href="{{ route('admin.users.index') }}">
+                                            <h6 class="text-muted font-semibold">Quick Settings</h6>
+                                            <h6 class="font-extrabold mb-0">Manage Account</h6>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
+                            @endif
+                            
                             <div class="card-body px-3 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -177,6 +187,18 @@
             position: 'top-end',
             icon: 'success',
             title: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    @endif
+
+    @if (session('error'))
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: '{{ session('error') }}',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true

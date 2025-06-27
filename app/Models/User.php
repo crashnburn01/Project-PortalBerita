@@ -52,4 +52,13 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
+    public function getFormattedRoleAttribute()
+{
+    if ($this->role === 'superadmin') {
+        return 'Super Admin';
+    }
+
+    return ucwords($this->role); // ucwords() will capitalize the first letter of each word
+}
+
 }

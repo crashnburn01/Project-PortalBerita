@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublicArticleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
 // ===================
 // Route Public
@@ -71,7 +72,8 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
 });
 
 Route::middleware(['auth', 'role:superadmin'])->prefix('admin')->name('admin.')->group(function () {
-    // Tambahkan rute khusus untuk superadmin di sini jika diperlukan
+    // Route khusus untuk Super Admin
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';
