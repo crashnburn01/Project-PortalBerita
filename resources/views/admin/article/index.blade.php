@@ -47,7 +47,7 @@
                                         <tbody>
                                             @forelse ($articles as $article)
                                             <tr>
-                                                <td class="text-bold-500">{{ $article->title }}</td>
+                                                <td class="font-bold ms-0 mb-0">{{ $article->title }}</td>
                                                 <td>{{ $article->category->name ?? '-' }}</td>
                                                 <td class="text-bold-500">{{ $article->user->name ?? '-' }}</td>
                                                 <td>

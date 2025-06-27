@@ -78,8 +78,8 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" onclick="logoutConfirm(event)">
-                                <i class="bi bi-x-circle"></i>
+                            <a href="#" class="sidebar-link" style="background-color: rgb(204, 0, 0); color:white;" onclick="logoutConfirm(event)">
+                                <i class="bi bi-x-circle" style="color: white;"></i>
                                 <span>Logout</span>
                             </a>
                         

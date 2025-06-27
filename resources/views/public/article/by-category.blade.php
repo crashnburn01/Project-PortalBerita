@@ -53,7 +53,7 @@
                         </div>
                         @empty
                         <div class="col-12">
-                            Belum ada artikel untuk kategori ini.
+                            <p class="text-center">Belum ada berita untuk kategori ini.</p>
                         </div>
                             
                         @endforelse
