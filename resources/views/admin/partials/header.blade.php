@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/vendors/iconly/bold.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ95wQxLzO9eYcO48zI9Zt92tJ+8N/9Q/W21x208k/2c4C8J/c4p8TzX7eJ9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
@@ -65,7 +66,7 @@
                         <li class="sidebar-item">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-people-fill"></i>
-                                <span>Manajemen User</span>
+                                <span>Database Anggota</span>
                             </a>
                         </li>
                     
@@ -77,8 +78,8 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" onclick="logoutConfirm(event)">
-                                <i class="bi bi-x-circle"></i>
+                            <a href="#" class="sidebar-link" style="background-color: rgb(204, 0, 0); color:white;" onclick="logoutConfirm(event)">
+                                <i class="bi bi-x-circle" style="color: white;"></i>
                                 <span>Logout</span>
                             </a>
                         

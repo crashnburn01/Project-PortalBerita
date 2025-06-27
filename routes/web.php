@@ -8,19 +8,22 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PublicArticleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\adminIndexController;
 
 // ===================
 // Route Public
 // ===================
 
 
-Route::view('/artikel', 'public.article.index');
-Route::view('/reportase', 'public.article.reportase');
-Route::view('/opini', 'public.article.opini');
-Route::view('/featurenews', 'public.article.featurenews');
+// Route::view('/artikel', 'public.article.index');
+// Route::view('/reportase', 'public.article.reportase');
+// Route::view('/opini', 'public.article.opini');
+// Route::view('/featurenews', 'public.article.featurenews');
+// Route::view('/article/contoh-artikel', 'public.article.show');
+
 Route::view('/about', 'public.about');
 Route::view('/suarapembaca', 'public.suarapembaca');
-Route::view('/article/contoh-artikel', 'public.article.show');
 
 Route::get('/', [HomeController::class, 'index'])->name('public.home');
 
@@ -68,10 +71,13 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
 
     Route::resource('articles', ArticleController::class);
     Route::resource('category', CategoryController::class);
+    
+    Route::get('/dashboard', [adminIndexController::class, 'index'])->name('index');
 });
 
 Route::middleware(['auth', 'role:superadmin'])->prefix('admin')->name('admin.')->group(function () {
-    // Tambahkan rute khusus untuk superadmin di sini jika diperlukan
+    // Route khusus untuk Super Admin
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';

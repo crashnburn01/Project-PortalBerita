@@ -7,11 +7,10 @@
                 </a>
                 <p>Ketika Tanda Tanya Menyelimuti Kampus Kuning Gading</p>
                 <div class="d-flex justify-content-start mt-4">
-                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="https://www.instagram.com/lppm_format"><i class="fab fa-instagram"></i></a>
                     <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-secondary text-center mr-2 px-0" style="width: 38px; height: 38px;" href="#"><i class="fab fa-spotify"></i></a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-5">
@@ -60,6 +59,16 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('portal-assets/js/main.js') }}"></script>
+
+    <script>
+        // Menggunakan jQuery untuk menyembunyikan overlay setelah halaman dimuat
+        $(window).on('load', function() {
+            // Dapatkan elemen overlay
+            const overlay = $('#loading-overlay');
+            // Menambahkan kelas 'hidden' untuk memulai transisi
+            overlay.addClass('hidden');
+        });
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 @include('admin.partials.header')
 
+@php
+    $isSuperadmin = Auth::user()->role === 'superadmin';
+@endphp
+
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -25,7 +29,7 @@
                                 </div>
                             </div>
                         </div>
-                                                
+
                         <div class="row">
                             <div class="col-12 col-xl-12">
                                 <div class="card">
@@ -37,39 +41,31 @@
                                             <table class="table table-hover table-lg">
                                                 <thead>
                                                     <tr>
-                                                        <th>Name</th>
-                                                        <th>Comment</th>
+                                                        <th>Judul Postingan</th>
+                                                        <th>Tanggal Publish</th>
+                                                        <th>Editor</th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach ($articles as $article)
+                                                    
+
                                                     <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/5.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                            </div>
+                                                        <td class="col-6">
+                                                            <p class="font-bold ms-0 mb-0">{{ $article->title }}</p>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0">Congratulations on your graduation!</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="assets/images/faces/2.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                            </div>
+                                                            <p class=" mb-0">{{ \Carbon\Carbon::parse($article->published_at)->translatedFormat('d F Y') }}</p>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0">Wow amazing design! Can you make another
-                                                                tutorial for
-                                                                this design?</p>
+                                                            <p class="mb-0">{{ $article->user->name }}</p>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <a href="{{ route('public.article.show', $article->slug) }}" target="_blank" class="btn btn-sm btn-info"><i class="bi bi-eye"></i></a>
                                                         </td>
                                                     </tr>
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
@@ -134,6 +130,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            @if ($isSuperadmin)
                             <div class="card-body px-3 py-4-5">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -142,24 +140,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Followers</h6>
-                                        <h6 class="font-extrabold mb-0">183.000</h6>
+                                        <a href="{{ route('admin.users.index') }}">
+                                            <h6 class="text-muted font-semibold">Quick Settings</h6>
+                                            <h6 class="font-extrabold mb-0">Manage Account</h6>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon green">
-                                            <i class="iconly-boldProfile"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Followers</h6>
-                                        <h6 class="font-extrabold mb-0">183.000</h6>
-                                    </div>
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </section>
@@ -177,6 +165,18 @@
             position: 'top-end',
             icon: 'success',
             title: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+    @endif
+
+    @if (session('error'))
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'error',
+            title: '{{ session('error') }}',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true

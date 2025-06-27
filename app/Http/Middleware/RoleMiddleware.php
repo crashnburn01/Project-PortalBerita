@@ -20,16 +20,12 @@ class RoleMiddleware
             return redirect('/admin/login')->with('error', 'Anda harus login terlebih dahulu.');
         }
 
-        if(!in_array(Auth::user()->user, $roles)){
+        $user = Auth::user();
+
+        if(!in_array($user->role, $roles)){
             return redirect('/admin/login')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
-        // $user = Auth::user();
-
-        // if (!$user || !in_array($user->role, $roles)) {
-        //     // Jika role tidak sesuai, redirect atau abort 403
-        //     abort(403, 'Unauthorized'); 
-        // }
-
+        
         return $next($request);
     }
 }

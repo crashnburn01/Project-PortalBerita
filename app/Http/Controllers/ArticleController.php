@@ -19,7 +19,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::with('user', 'category')->paginate(10);
+        $articles = Article::with('user', 'category')->latest()->paginate(10);
         $categories = Category::all();
         return view('admin.article.index', compact('articles','categories'));
     }

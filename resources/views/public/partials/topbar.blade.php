@@ -23,10 +23,17 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('portal-assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('portal-assets/css/spinner.css') }}" rel="stylesheet">
+
 </head>
 
 <body>
     <!-- Topbar Start -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row align-items-center bg-light px-lg-5">
             <div class="col-12 col-md-8">
