@@ -48,7 +48,7 @@
                                  class="img-fluid mr-3 mt-1" 
                                  style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
                             <div>
-                                <h6 class="mb-0"><a href="">{{ $article->user->name }}</a></h6>
+                                <h6 class="mb-0"><span style="color: red;">{{ $article->user->name }}</span></h6>
                             </div>
                         </div>
                     </div>

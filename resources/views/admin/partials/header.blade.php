@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 </head>
@@ -38,7 +38,7 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                     
-                        <li class="sidebar-title">Berita</li>
+                        <li class="sidebar-title">Menu</li>
                     
                         <li class="sidebar-item {{ request()->routeIs('admin.index') ? 'active' : '' }}">
                             <a href="{{ route('admin.index') }}" class='sidebar-link'>
@@ -61,7 +61,7 @@
                             </a>
                         </li>
                     
-                        <li class="sidebar-title">Pengaturan</li>
+                        <li class="sidebar-title">Others</li>
                     
                         <li class="sidebar-item">
                             <a href="#" class='sidebar-link'>
@@ -71,9 +71,9 @@
                         </li>
                     
                         <li class="sidebar-item">
-                            <a href="#" class='sidebar-link'>
+                            <a href="" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
-                                <span>Profil Saya</span>
+                                <span>Nav Baru</span>
                             </a>
                         </li>
 

@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <title>FORMAT NEWS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta content="FORMAT NEWS - LPPM" name="keywords">
+    <meta content="Portal Berita Lembaga Penerbitan dan Penyiaran Mahasiswa Universitas Dipa Makassar" name="description">
 
     <!-- Favicon -->
-    <link href="{{ asset('portal-assets/img/favicon.ico') }}" rel="icon">
+    {{-- <link href="{{ asset('portal-assets/img/favicon.ico') }}" rel="icon"> --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.ico') }}">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
