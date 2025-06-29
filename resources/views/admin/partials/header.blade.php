@@ -58,8 +58,15 @@
                     
                         <li class="sidebar-item {{ request()->routeIs('admin.category.*') ? 'active' : '' }}" >
                             <a href="{{ route('admin.category.index') }}" class='sidebar-link'>
+                                <i class="bi bi-folder"></i>
+                                <span>Kelola Kategori</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item {{ request()->routeIs('admin.tags.*') ? 'active' : '' }}" >
+                            <a href="{{ route('admin.tags.index') }}" class='sidebar-link'>
                                 <i class="bi bi-tags"></i>
-                                <span>Kategori Berita</span>
+                                <span>Kelola Tags</span>
                             </a>
                         </li>
                     

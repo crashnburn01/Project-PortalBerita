@@ -10,6 +10,7 @@ use App\Http\Controllers\PublicArticleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\adminIndexController;
+use App\Http\Controllers\tagController;
 
 // ===================
 // Route Public
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'role:admin,superadmin'])->prefix('admin')->name('adm
 
     Route::resource('articles', ArticleController::class);
     Route::resource('category', CategoryController::class);
+    Route::resource('tags', tagController::class);
     
     Route::get('/dashboard', [adminIndexController::class, 'index'])->name('index');
 });
