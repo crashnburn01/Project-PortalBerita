@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -21,7 +22,9 @@ class ArticleController extends Controller
     {
         $articles = Article::with('user', 'category')->latest()->paginate(10);
         $categories = Category::all();
-        return view('admin.article.index', compact('articles','categories'));
+        $tags = Tag::all();
+
+        return view('admin.article.index', compact('articles','categories','tags'));
     }
 
     /**
@@ -44,6 +47,7 @@ class ArticleController extends Controller
             'content' => 'required',
             'category_id' => 'required|exists:categories,id',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tags' => 'nullable|array',
         ]);
 
         try {
@@ -60,7 +64,7 @@ class ArticleController extends Controller
 
             $user = Auth::user();
 
-            Article::create([
+            $article = Article::create([
                 'title' => $request->title,
                 'slug' => $slug,
                 'content' => $request->content,
@@ -70,6 +74,8 @@ class ArticleController extends Controller
                 'is_published' => $request->has('is_published'),
                 'published_at' => $request->has('is_published') ? now() : null,
             ]);
+
+            $article->tags()->attach($request->tags);
 
             return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dibuat.');
         } catch (\Exception $e) {
@@ -104,6 +110,7 @@ class ArticleController extends Controller
             'content' => 'required',
             'category_id' => 'required|exists:categories,id',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tags' => 'nullable|array',
         ]);
     
         try {
@@ -132,6 +139,8 @@ class ArticleController extends Controller
                 'published_at' => $request->has('is_published') ? now() : null,
                 'thumbnail' => $thumbnail,
             ]);
+
+            $article->tags()->sync($request->tags);
         
             return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
         } catch (\Exception $e) {

@@ -126,6 +126,19 @@
                 <textarea class="form-control" id="content" name="content" rows="5">{{ old('content') }}</textarea>
               </div>
 
+              <div class="mb-3">
+                <label for="">Tags</label>
+                  <div class="form-group">
+                    <select class="choices form-select multiple-remove"name="tags[]" multiple="multiple">
+                      <optgroup label="Tags">
+                        @foreach ($tags as $tag)
+                          <option value="{{ $tag->id }}" {{ isset($article) && $article->tags->contains($tag->id) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                        @endforeach
+                      </optgroup>
+                    </select>
+                  </div>
+              </div>
+
                 <div class="mb-3">
                   <label for="thumbnail" class="form-label">Thumbnail</label>
                   <input class="form-control" type="file" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewThumbnail(event)">
@@ -182,6 +195,19 @@
               <div class="mb-3">
                 <label for="content{{ $article->id }}" class="form-label">Isi Berita</label>
                 <textarea class="form-control" id="content{{ $article->id }}" name="content" rows="5">{{ $article->content }}</textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="">Tags</label>
+                  <div class="form-group">
+                    <select class="choices form-select multiple-remove"name="tags[]" multiple="multiple">
+                      <optgroup label="Tags">
+                        @foreach ($tags as $tag)
+                          <option value="{{ $tag->id }}" {{ isset($article) && $article->tags->contains($tag->id) ? 'selected' : '' }}>{{ $tag->name }}</option>
+                        @endforeach
+                      </optgroup>
+                    </select>
+                  </div>
               </div>
 
               <div class="mb-3">
@@ -405,5 +431,8 @@ document.querySelector('form').addEventListener('submit', function(e) {
   document.querySelector('#content').value = window.editor.getData();
 });
 </script>
+
+<script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
+
 
 </div>
