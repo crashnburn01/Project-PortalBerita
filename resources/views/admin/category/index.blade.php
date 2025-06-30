@@ -80,41 +80,78 @@
         </section>
     </div>
 
-<!-- Modal Tambah Kategori -->
-<div class="modal fade" id="tambahBeritaModal" tabindex="-1" aria-labelledby="tambahBeritaModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <!-- Modal Tambah Kategori -->
+    <div class="modal fade" id="tambahBeritaModal" tabindex="-1" aria-labelledby="tambahBeritaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
-      <form action="{{ route('admin.category.store') }}" method="POST">
-        @csrf
+          <form action="{{ route('admin.category.store') }}" method="POST">
+            @csrf
 
-        <div class="modal-header">
-          <h5 class="modal-title" id="tambahBeritaModalLabel">Tambah Kategori Baru</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-header">
+              <h5 class="modal-title" id="tambahBeritaModalLabel">Tambah Kategori Baru</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nama Kategori</label>
+                <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') }}">
+              </div>
+
+              <div class="mb-3">
+                <label for="slug" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}">
+                <small class="text-muted">Slug biasanya berupa huruf kecil tanpa spasi, gunakan tanda strip (-) untuk pemisah</small>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Tambah Kategori</button>
+            </div>
+
+          </form>
         </div>
-
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="name" class="form-label">Nama Kategori</label>
-            <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') }}">
-          </div>
-
-          <div class="mb-3">
-            <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}">
-            <small class="text-muted">Slug biasanya berupa huruf kecil tanpa spasi, gunakan tanda strip (-) untuk pemisah</small>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-primary">Tambah Kategori</button>
-        </div>
-
-      </form>
+      </div>
     </div>
-  </div>
-</div>
+
+    @foreach ($categories as $category)
+    <div class="modal fade" id="editBeritaModal{{ $category->id }}" tabindex="-1" aria-labelledby="editBeritaModalLabel{{ $category->id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <form action="{{ route('admin.category.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="modal-header">
+              <h5 class="modal-title" id="editBeritaModalLabel{{ $category->id }}">Edit Kategori</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="name{{ $category->id }}" class="form-label">Nama Kategori</label>
+                <input type="text" class="form-control" id="kategori{{ $category->id }}" name="updateName" required value="{{ $category->name }}">
+              </div>
+
+              <div class="mb-3">
+                <label for="slug{{ $category->id }}" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug{{ $category->id }}" name="updateSlug" required value="{{ $category->slug }}" readonly>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Update Berita</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    @endforeach
 
 @include('admin.partials.footer')
 
@@ -129,6 +166,27 @@
         slugInput.value = slug;
       });
     </script>
+
+    <script>
+    const categoryNameInputs = document.querySelectorAll('[id^="kategori"]');
+
+    categoryNameInputs.forEach(inputElement => {
+        inputElement.addEventListener('input', function() {
+            const categoryId = this.id.replace('kategori', '');
+            const slugInput = document.getElementById('slug' + categoryId);
+
+            if (slugInput) {
+                let slug = this.value.toLowerCase()
+                                      .replace(/[^a-z0-9\s-]/g, '')
+                                      .trim()
+                                      .replace(/\s+/g, '-');
+
+                slugInput.value = slug;
+            }
+        });
+    });
+    </script>
+
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

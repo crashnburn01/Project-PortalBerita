@@ -102,7 +102,7 @@
 
               <div class="mb-3">
                 <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}">
+                <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}" readonly>
                 <small class="text-muted">Slug biasanya berupa huruf kecil tanpa spasi, gunakan tanda strip (-) untuk pemisah</small>
               </div>
             </div>

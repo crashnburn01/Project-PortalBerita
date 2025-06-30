@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -68,9 +69,25 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'updateName' => 'required|max:255',
+            'updateSlug' => 'required|max:255',
+        ]);
+
+        try{
+            $slug = Str::slug($request->updateSlug);
+
+            $category->update([
+                'name' => $request->updateName,
+                'slug' => $slug,
+            ]);
+
+            return redirect()->route('admin.category.index')->with('success', 'Kategori berhasil diperbarui!');
+        } catch(\Exception $e){
+            return redirect()->back()->withInput()->with('error', 'Gagal melakukan update');
+        }
     }
 
     /**
