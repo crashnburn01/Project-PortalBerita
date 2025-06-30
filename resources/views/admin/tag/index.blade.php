@@ -70,7 +70,8 @@
                                     </table>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    {{-- disini untuk pasang pagination --}}
+                                    {{-- disini pasang pagination --}}
+                                    {{ $tags->links('vendor.pagination.bootstrap-4') }}
                                 </div>
                             </div>
                         </div>
