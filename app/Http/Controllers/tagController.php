@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class tagController extends Controller
@@ -11,7 +12,8 @@ class tagController extends Controller
      */
     public function index()
     {
-        return view('admin.tag.index');
+        $tags = Tag::withCount('articles')->paginate(10);
+        return view('admin.tag.index', compact('tags'));
     }
 
     /**
@@ -57,8 +59,17 @@ class tagController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Tag $tag)
     {
-        //
+        if ($tag->articles()->count() > 0) {
+            return redirect()->back()->with('error', 'Tag tidak dapat dihapus karena masih memiliki artikel.');
+        }
+
+        try {
+            $tag->delete();
+            return redirect()->route('admin.tags.index')->with('success', 'Tag berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus tag! Silakan coba lagi.')->withErrors($e->getMessage());
+        }
     }
 }
