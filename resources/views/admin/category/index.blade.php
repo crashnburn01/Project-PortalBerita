@@ -80,7 +80,7 @@
         </section>
     </div>
 
-    <!-- Modal Tambah Kategori -->
+<!-- Modal Tambah Kategori -->
 <div class="modal fade" id="tambahBeritaModal" tabindex="-1" aria-labelledby="tambahBeritaModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

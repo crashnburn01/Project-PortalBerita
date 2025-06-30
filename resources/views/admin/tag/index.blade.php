@@ -81,7 +81,55 @@
         </section>
     </div>
 
+    <!-- Modal Tambah Kategori -->
+    <div class="modal fade" id="tambahBeritaModal" tabindex="-1" aria-labelledby="tambahBeritaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <form action="{{ route('admin.tags.store') }}" method="POST">
+            @csrf
+
+            <div class="modal-header">
+              <h5 class="modal-title" id="tambahBeritaModalLabel">Tambah Tag Baru</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nama Tag</label>
+                <input type="text" class="form-control" id="nameTag" name="nameTag" required value="{{ old('nameTag') }}">
+              </div>
+
+              <div class="mb-3">
+                <label for="slug" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug" name="slug" required value="{{ old('slug') }}">
+                <small class="text-muted">Slug biasanya berupa huruf kecil tanpa spasi, gunakan tanda strip (-) untuk pemisah</small>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Tambah Tag</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
 @include('admin.partials.footer')
+
+    <script>
+      // Optional: Auto-generate slug dari nama tag
+      document.getElementById('nameTag').addEventListener('input', function () {
+        let slugInput = document.getElementById('slug');
+        let slug = this.value.toLowerCase()
+                              .replace(/[^a-z0-9\s-]/g, '')   // hilangkan karakter khusus
+                              .trim()
+                              .replace(/\s+/g, '-');          // spasi jadi strip
+        slugInput.value = slug;
+      });
+    </script>
 
 <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -157,4 +205,19 @@
             });
         });
     });
+
+    function logoutConfirm(e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Yakin ingin logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, logout',
+            cancelButtonText: 'Batal',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        });
+    }
     </script>

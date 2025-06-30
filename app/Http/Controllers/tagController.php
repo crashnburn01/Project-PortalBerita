@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class tagController extends Controller
@@ -29,7 +30,21 @@ class tagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nameTag' => 'required|max:255|unique:tags,name',
+            'slug' => 'required|max:255|unique:tags,slug',
+        ]);
+
+        try{
+            Tag::create([
+                'name' => $request->nameTag,
+                'slug' => Str::slug($request->slug),
+            ]);
+
+            return redirect()->route('admin.tags.index')->with('success', 'Tag berhasil dibuat');
+        } catch(\Exception $e){
+            return redirect()->back()->withInput()->with('error', 'Gagal membuat Tag')->withErrors($e->getMessage());
+        }
     }
 
     /**
