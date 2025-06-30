@@ -70,7 +70,7 @@
                                     </table>
                                 </div>
                                 <div class="d-flex justify-content-end">
-                                    
+                                    {{-- disini untuk pasang pagination --}}
                                 </div>
                             </div>
                         </div>
