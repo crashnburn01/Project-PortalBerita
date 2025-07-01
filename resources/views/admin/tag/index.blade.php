@@ -48,7 +48,7 @@
                                                 <td class="text-bold-500">{{ $tag->articles_count }}</td>
                                                 <td>
 
-                                                    <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editBeritaModal {{ $tag->id }}">
+                                                    <a href="#" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editBeritaModal{{ $tag->id }}">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
 
@@ -117,6 +117,43 @@
       </div>
     </div>
 
+    @foreach ($tags as $tag)
+    <div class="modal fade" id="editBeritaModal{{ $tag->id }}" tabindex="-1" aria-labelledby="editBeritaModalLabel{{ $tag->id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <form action="{{ route('admin.tags.update', $tag->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+
+            <div class="modal-header">
+              <h5 class="modal-title" id="editBeritaModalLabel{{ $tag->id }}">Edit Tag</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="name{{ $tag->id }}" class="form-label">Nama Tag</label>
+                <input type="text" class="form-control" id="tag{{ $tag->id }}" name="updateName" required value="{{ $tag->name }}">
+              </div>
+
+              <div class="mb-3">
+                <label for="slug{{ $tag->id }}" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug{{ $tag->id }}" name="updateSlug" required value="{{ $tag->slug }}" readonly>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Update Tag</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    @endforeach
+
 @include('admin.partials.footer')
 
     <script>
@@ -129,6 +166,26 @@
                               .replace(/\s+/g, '-');          // spasi jadi strip
         slugInput.value = slug;
       });
+    </script>
+
+    <script>
+    const tagNameInputs = document.querySelectorAll('[id^="tag"]');
+
+    tagNameInputs.forEach(inputElement => {
+        inputElement.addEventListener('input', function() {
+            const tagId = this.id.replace('tag', '');
+            const slugInput = document.getElementById('slug' + tagId);
+
+            if (slugInput) {
+                let slug = this.value.toLowerCase()
+                                      .replace(/[^a-z0-9\s-]/g, '')
+                                      .trim()
+                                      .replace(/\s+/g, '-');
+
+                slugInput.value = slug;
+            }
+        });
+    });
     </script>
 
 <!-- SweetAlert2 -->
@@ -221,3 +278,4 @@
         });
     }
     </script>
+</div>

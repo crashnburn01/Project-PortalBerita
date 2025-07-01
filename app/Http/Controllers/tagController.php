@@ -66,9 +66,25 @@ class tagController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $request->validate([
+            'updateName' => 'required|max:255',
+            'updateSlug' => 'required|max:255',
+        ]);
+
+        try{
+            $slug = Str::slug($request->updateSlug);
+
+            $tag->update([
+                'name' => $request->updateName,
+                'slug' => $slug,
+            ]);
+
+            return redirect()->route('admin.tags.index')->with('success', 'Tag berhasil diperbarui!');
+        } catch(\Exception $e){
+            return redirect()->back()->withInput()->with('error', 'Gagal melakukan update');
+        }
     }
 
     /**
