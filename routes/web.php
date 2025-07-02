@@ -34,7 +34,7 @@ Route::get('/artikel/{slug}', [PublicArticleController::class, 'show'])->name('p
 Route::get('/kategori/{slug}', [PublicArticleController::class, 'byCategory'])->name('kategori');
 
 // Route Dashboard umum (jika ingin dipakai user biasa)
-Route::get('/dashboard', fn() => view('dashboard'))
+Route::get('/admin/control', fn() => view('dashboard'))
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
